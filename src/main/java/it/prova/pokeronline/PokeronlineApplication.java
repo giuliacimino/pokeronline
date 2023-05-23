@@ -37,9 +37,14 @@ public class PokeronlineApplication implements CommandLineRunner{
 			ruoloServiceInstance.inserisciNuovo(new Ruolo("Administrator", Ruolo.ROLE_ADMIN));
 		}
 
-		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", Ruolo.ROLE_CLASSIC_USER) == null) {
-			ruoloServiceInstance.inserisciNuovo(new Ruolo("Classic User", Ruolo.ROLE_CLASSIC_USER));
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Player", Ruolo.ROLE_PLAYER) == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Player", Ruolo.ROLE_PLAYER));
 		}
+		
+		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Special Player", Ruolo.ROLE_SPECIAL_PLAYER) == null) {
+			ruoloServiceInstance.inserisciNuovo(new Ruolo("Special Player", Ruolo.ROLE_SPECIAL_PLAYER));
+		}
+		
 		
 		if (utenteServiceInstance.findByUsername("admin") == null) {
 			Utente admin = new Utente("admin", "admin", "Mario", "Rossi", LocalDate.now(), 100);
@@ -49,41 +54,41 @@ public class PokeronlineApplication implements CommandLineRunner{
 			utenteServiceInstance.changeUserAbilitation(admin.getId());
 		}
 
-		if (utenteServiceInstance.findByUsername("user") == null) {
-			Utente classicUser = new Utente("user", "user", "Antonio", "Verdi", LocalDate.now(), 200);
-			classicUser.getRuoli()
-					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", Ruolo.ROLE_CLASSIC_USER));
-			utenteServiceInstance.inserisciNuovo(classicUser);
+		if (utenteServiceInstance.findByUsername("player1") == null) {
+			Utente player1 = new Utente("player1", "player1", "Antonio", "Verdi", LocalDate.now(), 200);
+			player1.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Player", Ruolo.ROLE_PLAYER));
+			utenteServiceInstance.inserisciNuovo(player1);
 			// l'inserimento avviene come created ma io voglio attivarlo
-			utenteServiceInstance.changeUserAbilitation(classicUser.getId());
+			utenteServiceInstance.changeUserAbilitation(player1.getId());
 		}
 
-		if (utenteServiceInstance.findByUsername("user1") == null) {
-			Utente classicUser1 = new Utente("user1", "user1", "Antonioo", "Verdii", LocalDate.now(), 20);
-			classicUser1.getRuoli()
-					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", Ruolo.ROLE_CLASSIC_USER));
-			utenteServiceInstance.inserisciNuovo(classicUser1);
+		if (utenteServiceInstance.findByUsername("specialPlayer1") == null) {
+			Utente specialPlayer1 = new Utente("specialPlayer1", "specialPlayer1", "Antonioo", "Verdii", LocalDate.now(), 20);
+			specialPlayer1.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", Ruolo.ROLE_SPECIAL_PLAYER));
+			utenteServiceInstance.inserisciNuovo(specialPlayer1);
 			// l'inserimento avviene come created ma io voglio attivarlo
-			utenteServiceInstance.changeUserAbilitation(classicUser1.getId());
+			utenteServiceInstance.changeUserAbilitation(specialPlayer1.getId());
 		}
 
-		if (utenteServiceInstance.findByUsername("user2") == null) {
-			Utente classicUser2 = new Utente("user2", "user2", "Antoniooo", "Verdiii", LocalDate.now(), 150);
-			classicUser2.getRuoli()
-					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", Ruolo.ROLE_CLASSIC_USER));
-			utenteServiceInstance.inserisciNuovo(classicUser2);
+		if (utenteServiceInstance.findByUsername("player2") == null) {
+			Utente player2 = new Utente("player2", "player2", "Antoniooo", "Verdiii", LocalDate.now(), 150);
+			player2.getRuoli()
+					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", Ruolo.ROLE_PLAYER));
+			utenteServiceInstance.inserisciNuovo(player2);
 			// l'inserimento avviene come created ma io voglio attivarlo
-			utenteServiceInstance.changeUserAbilitation(classicUser2.getId());
+			utenteServiceInstance.changeUserAbilitation(player2.getId());
 		}
 		
 		Tavolo tavolo1 = new Tavolo(20, 10, "tavolo per principianti", LocalDate.of(2023, 3, 12));
-		tavolo1.getGiocatori().add(utenteServiceInstance.findByUsername("classicUser"));
+		tavolo1.getGiocatori().add(utenteServiceInstance.findByUsername("player2"));
 		if (tavoloServiceInstance.cercaPerDenominazione(tavolo1.getDenominazione()).isEmpty())
 		tavoloServiceInstance.inserisciNuovo(tavolo1);
 		
 		Tavolo tavolo2 = new Tavolo(200, 50, "tavolo per giocatori medi", LocalDate.of(2023, 4, 15));
-		tavolo2.getGiocatori().add(utenteServiceInstance.findByUsername("classicUser"));
-		tavolo2.getGiocatori().add(utenteServiceInstance.findByUsername("classicUser1"));
+		tavolo2.getGiocatori().add(utenteServiceInstance.findByUsername("specialPlayer1"));
+		tavolo2.getGiocatori().add(utenteServiceInstance.findByUsername("player1"));
 		if (tavoloServiceInstance.cercaPerDenominazione(tavolo2.getDenominazione()).isEmpty())
 		tavoloServiceInstance.inserisciNuovo(tavolo2);
 		
