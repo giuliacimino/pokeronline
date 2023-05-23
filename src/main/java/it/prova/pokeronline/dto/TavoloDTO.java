@@ -3,6 +3,7 @@ package it.prova.pokeronline.dto;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -179,7 +180,7 @@ public class TavoloDTO {
 	
 	
 	
-	public static TavoloDTO buildUtenteDTOFromModel(Tavolo tavoloModel) {
+	public static TavoloDTO buildTavoloDTOFromModel(Tavolo tavoloModel) {
 		TavoloDTO result = new TavoloDTO (tavoloModel.getId(), tavoloModel.getEsperienzaMin(), tavoloModel.getCifraMin(),
 				tavoloModel.getDenominazione(), tavoloModel.getDataCreazione());
 
@@ -190,6 +191,11 @@ public class TavoloDTO {
 		return result;
 	}
 	
+	public static List<TavoloDTO> createTavoloDTOListFromModelList(List<Tavolo> modelListInput) {
+		return modelListInput.stream().map(tavoloEntity -> {
+			return TavoloDTO.buildTavoloDTOFromModel(tavoloEntity);
+		}).collect(Collectors.toList());
+	} 
 	
 	
 
