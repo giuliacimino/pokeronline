@@ -2,15 +2,23 @@ package it.prova.pokeronline.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.pokeronline.dto.UtenteDTO;
 import it.prova.pokeronline.model.StatoUtente;
+import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.repository.utente.UtenteRepository;
+import it.prova.pokeronline.web.api.exception.CreditoInsufficientePerGiocareException;
+import it.prova.pokeronline.web.api.exception.EsperienzaInsuficienteException;
+import it.prova.pokeronline.web.api.exception.RicaricaNonPermessaException;
+import it.prova.pokeronline.web.api.exception.TavoloNotFoundException;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +29,8 @@ public class UtenteServiceImpl implements UtenteService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	
 
 	@Override
 	public List<Utente> listAllUtenti() {
@@ -112,4 +122,24 @@ public class UtenteServiceImpl implements UtenteService {
 
 	}
 
-}
+	@Override
+	public Utente compraCredito(Double ricarica) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Utente utenteLoggato = findByUsername(username);
+		Double creditoTotale = utenteLoggato.getCreditoAccumulato() + ricarica;
+		if (ricarica <= 0) {
+			throw new RicaricaNonPermessaException("impossibile ricaricare.");
+		}
+		utenteLoggato.setCreditoAccumulato(creditoTotale);
+		return utenteLoggato;
+
+	}
+
+	
+		
+		
+		
+	}
+
+
+

@@ -62,6 +62,16 @@ public class Tavolo {
 		this.giocatori = giocatori;
 		this.utenteCreatore = utenteCreatore;
 	}
+	
+	
+
+
+	public Tavolo(Integer esperienzaMin, Integer cifraMin, String denominazione) {
+		super();
+		this.esperienzaMin = esperienzaMin;
+		this.cifraMin = cifraMin;
+		this.denominazione = denominazione;
+	}
 
 
 	public Tavolo(Integer esperienzaMin, Integer cifraMin, String denominazione, LocalDate dataCreazione,
@@ -74,6 +84,9 @@ public class Tavolo {
 		this.giocatori = giocatori;
 		this.utenteCreatore = utenteCreatore;
 	}
+	
+	
+
 
 
 	public Tavolo(Integer esperienzaMin, Integer cifraMin, String denominazione, LocalDate dataCreazione) {
@@ -85,6 +98,19 @@ public class Tavolo {
 	}
 	
 	
+	
+	
+
+
+	public Tavolo(Integer esperienzaMin, Integer cifraMin, String denominazione, LocalDate dataCreazione,
+			Utente utenteCreatore) {
+		super();
+		this.esperienzaMin = esperienzaMin;
+		this.cifraMin = cifraMin;
+		this.denominazione = denominazione;
+		this.dataCreazione = dataCreazione;
+		this.utenteCreatore = utenteCreatore;
+	}
 
 
 	public Tavolo(Long id, Integer esperienzaMin, Integer cifraMin, String denominazione, LocalDate dataCreazione) {

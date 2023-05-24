@@ -2,11 +2,14 @@ package it.prova.pokeronline.service;
 
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import it.prova.pokeronline.dto.UtenteDTO;
+import it.prova.pokeronline.model.Tavolo;
 import it.prova.pokeronline.model.Utente;
 
-
 public interface UtenteService {
-	
+
 	public List<Utente> listAllUtenti();
 
 	public Utente caricaSingoloUtente(Long id);
@@ -29,5 +32,8 @@ public interface UtenteService {
 
 	public Utente findByUsername(String username);
 
+	public Utente compraCredito(Double ricarica);
+	
+	
 
 }

@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.StatoUtente;
 import it.prova.pokeronline.model.Utente;
@@ -28,6 +30,7 @@ public class UtenteDTO {
 	
 	
 	@NotBlank(message = "{password.notblank}")
+	@JsonIgnore(value = true)
 	private String password;
 	
 	
@@ -36,9 +39,12 @@ public class UtenteDTO {
 	
 	private StatoUtente stato;
 	
+	private Double esperienzaAccumulata;
 	
 	@NotNull(message = "{creditoAccumulato.notnull}")
-	private Integer creditoAccumulato;
+	private Double creditoAccumulato;
+	
+	
 	
 	private Long[] ruoliIds;
 
@@ -51,7 +57,7 @@ public class UtenteDTO {
 			@NotBlank(message = "{username.notblank}") String username,
 			@NotBlank(message = "{password.notblank}") String password,
 			@NotNull(message = "{dataRegistrazione.notnull}") LocalDate dataRegistrazione, StatoUtente stato,
-			@NotNull(message = "{creditoAccumulato.notnull}") Integer creditoAccumulato, Long[] ruoliIds) {
+			@NotNull(message = "{creditoAccumulato.notnull}") Double creditoAccumulato, Long[] ruoliIds) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -69,7 +75,7 @@ public class UtenteDTO {
 			@NotBlank(message = "{username.notblank}") String username,
 			@NotBlank(message = "{password.notblank}") String password,
 			@NotNull(message = "{dataRegistrazione.notnull}") LocalDate dataRegistrazione, StatoUtente stato,
-			@NotNull(message = "{creditoAccumulato.notnull}") Integer creditoAccumulato, Long[] ruoliIds) {
+			@NotNull(message = "{creditoAccumulato.notnull}") Double creditoAccumulato, Long[] ruoliIds) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
@@ -86,7 +92,7 @@ public class UtenteDTO {
 			@NotBlank(message = "{username.notblank}") String username,
 			@NotBlank(message = "{password.notblank}") String password,
 			@NotNull(message = "{dataRegistrazione.notnull}") LocalDate dataRegistrazione, StatoUtente stato,
-			@NotNull(message = "{creditoAccumulato.notnull}") Integer creditoAccumulato) {
+			@NotNull(message = "{creditoAccumulato.notnull}") Double creditoAccumulato) {
 		super();
 		this.nome = nome;
 		this.cognome = cognome;
@@ -104,7 +110,7 @@ public class UtenteDTO {
 			@NotBlank(message = "{username.notblank}") String username,
 			@NotBlank(message = "{password.notblank}") String password,
 			@NotNull(message = "{dataRegistrazione.notnull}") LocalDate dataRegistrazione, StatoUtente stato,
-			@NotNull(message = "{creditoAccumulato.notnull}") Integer creditoAccumulato) {
+			@NotNull(message = "{creditoAccumulato.notnull}") Double creditoAccumulato) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -113,6 +119,45 @@ public class UtenteDTO {
 		this.password = password;
 		this.dataRegistrazione = dataRegistrazione;
 		this.stato = stato;
+		this.creditoAccumulato = creditoAccumulato;
+	}
+	
+	
+
+	public UtenteDTO(@NotBlank(message = "{nome.notblank}") String nome,
+			@NotBlank(message = "{cognome.notblank}") String cognome,
+			@NotBlank(message = "{username.notblank}") String username,
+			@NotBlank(message = "{password.notblank}") String password,
+			@NotNull(message = "{dataRegistrazione.notnull}") LocalDate dataRegistrazione, StatoUtente stato,
+			Double esperienzaAccumulata, @NotNull(message = "{creditoAccumulato.notnull}") Double creditoAccumulato) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+		this.dataRegistrazione = dataRegistrazione;
+		this.stato = stato;
+		this.esperienzaAccumulata = esperienzaAccumulata;
+		this.creditoAccumulato = creditoAccumulato;
+	}
+	
+	
+
+	public UtenteDTO(Long id, @NotBlank(message = "{nome.notblank}") String nome,
+			@NotBlank(message = "{cognome.notblank}") String cognome,
+			@NotBlank(message = "{username.notblank}") String username,
+			@NotBlank(message = "{password.notblank}") String password,
+			@NotNull(message = "{dataRegistrazione.notnull}") LocalDate dataRegistrazione, StatoUtente stato,
+			Double esperienzaAccumulata, @NotNull(message = "{creditoAccumulato.notnull}") Double creditoAccumulato) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+		this.dataRegistrazione = dataRegistrazione;
+		this.stato = stato;
+		this.esperienzaAccumulata = esperienzaAccumulata;
 		this.creditoAccumulato = creditoAccumulato;
 	}
 
@@ -172,11 +217,11 @@ public class UtenteDTO {
 		this.stato = stato;
 	}
 
-	public Integer getCreditoAccumulato() {
+	public Double getCreditoAccumulato() {
 		return creditoAccumulato;
 	}
 
-	public void setCreditoAccumulato(Integer creditoAccumulato) {
+	public void setCreditoAccumulato(Double creditoAccumulato) {
 		this.creditoAccumulato = creditoAccumulato;
 	}
 
@@ -188,9 +233,19 @@ public class UtenteDTO {
 		this.ruoliIds = ruoliIds;
 	}
 	
+	
+	
+	public Double getEsperienzaAccumulata() {
+		return esperienzaAccumulata;
+	}
+
+	public void setEsperienzaAccumulata(Double esperienzaAccumulata) {
+		this.esperienzaAccumulata = esperienzaAccumulata;
+	}
+
 	public Utente buildUtenteModel(boolean includeIdRoles) {
 		Utente result = new Utente(this.id,this.username, this.password, this.nome, this.cognome,
-				this.dataRegistrazione,this.stato,this.creditoAccumulato);
+				this.dataRegistrazione,this.stato, this.esperienzaAccumulata, this.creditoAccumulato);
 		if (includeIdRoles && ruoliIds != null)
 			result.setRuoli(Arrays.asList(ruoliIds).stream().map(id -> new Ruolo(id)).collect(Collectors.toSet()));
 
@@ -200,7 +255,7 @@ public class UtenteDTO {
 	
 	// niente password...
 		public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel) {
-			UtenteDTO result = new UtenteDTO(utenteModel.getId(),utenteModel.getNome(), utenteModel.getCognome(), utenteModel.getUsername(), utenteModel.getPassword(), utenteModel.getDataRegistrazione(), utenteModel.getStato(), utenteModel.getCreditoAccumulato());
+			UtenteDTO result = new UtenteDTO(utenteModel.getId(),utenteModel.getNome(), utenteModel.getCognome(), utenteModel.getUsername(), utenteModel.getPassword(), utenteModel.getDataRegistrazione(), utenteModel.getStato(), utenteModel.getEsperienzaAccumulata(), utenteModel.getCreditoAccumulato());
 
 			if (!utenteModel.getRuoli().isEmpty())
 				result.ruoliIds = utenteModel.getRuoli().stream().map(r -> r.getId()).collect(Collectors.toList())

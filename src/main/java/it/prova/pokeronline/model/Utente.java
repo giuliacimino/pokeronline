@@ -45,8 +45,11 @@ public class Utente {
 	@Column(name = "stato")
 	private StatoUtente stato;
 	
+	@Column(name = "esperienzaAccumulata")
+	private Double esperienzaAccumulata;
+	
 	@Column(name = "creditoAccumulato")
-	private Integer creditoAccumulato;
+	private Double creditoAccumulato;
 	
 	@ManyToMany
 	@JoinTable(name = "utente_ruolo", joinColumns = @JoinColumn(name = "utente_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ruolo_id", referencedColumnName = "ID"))
@@ -59,7 +62,7 @@ public class Utente {
 
 
 	public Utente(Long id, String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
-			StatoUtente stato, Integer creditoAccumulato, Set<Ruolo> ruoli) {
+			StatoUtente stato, Double creditoAccumulato, Set<Ruolo> ruoli) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -79,7 +82,7 @@ public class Utente {
 
 
 	public Utente(String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
-			Integer creditoAccumulato) {
+			Double creditoAccumulato) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -99,7 +102,7 @@ public class Utente {
 
 
 	public Utente(Long id, String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
-			StatoUtente stato, Integer creditoAccumulato) {
+			StatoUtente stato, Double creditoAccumulato) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -114,7 +117,7 @@ public class Utente {
 
 
 	public Utente(String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
-			StatoUtente stato, Integer creditoAccumulato) {
+			StatoUtente stato, Double creditoAccumulato) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -128,7 +131,7 @@ public class Utente {
 
 
 	public Utente(String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
-			StatoUtente stato, Integer creditoAccumulato, Set<Ruolo> ruoli) {
+			StatoUtente stato, Double creditoAccumulato, Set<Ruolo> ruoli) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -138,6 +141,41 @@ public class Utente {
 		this.stato = stato;
 		this.creditoAccumulato = creditoAccumulato;
 		this.ruoli = ruoli;
+	}
+
+	
+	
+
+
+	public Utente(String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
+			StatoUtente stato, Double esperienzaAccumulata, Double creditoAccumulato) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataRegistrazione = dataRegistrazione;
+		this.stato = stato;
+		this.esperienzaAccumulata = esperienzaAccumulata;
+		this.creditoAccumulato = creditoAccumulato;
+	}
+	
+	
+
+
+
+	public Utente(Long id, String username, String password, String nome, String cognome, LocalDate dataRegistrazione,
+			StatoUtente stato, Double esperienzaAccumulata, Double creditoAccumulato) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.dataRegistrazione = dataRegistrazione;
+		this.stato = stato;
+		this.esperienzaAccumulata = esperienzaAccumulata;
+		this.creditoAccumulato = creditoAccumulato;
 	}
 
 
@@ -216,13 +254,19 @@ public class Utente {
 	}
 
 
-	public Integer getCreditoAccumulato() {
+	
+
+	public Double getCreditoAccumulato() {
 		return creditoAccumulato;
 	}
 
-	public void setCreditoAccumulato(Integer creditoAccumulato) {
+
+
+	public void setCreditoAccumulato(Double creditoAccumulato) {
 		this.creditoAccumulato = creditoAccumulato;
 	}
+
+
 
 	public Set<Ruolo> getRuoli() {
 		return ruoli;
@@ -231,6 +275,20 @@ public class Utente {
 	public void setRuoli(Set<Ruolo> ruoli) {
 		this.ruoli = ruoli;
 	}
+
+
+
+	public Double getEsperienzaAccumulata() {
+		return esperienzaAccumulata;
+	}
+
+
+
+	public void setEsperienzaAccumulata(Double esperienzaAccumulata) {
+		this.esperienzaAccumulata = esperienzaAccumulata;
+	}
+	
+	
 	
 	
 	

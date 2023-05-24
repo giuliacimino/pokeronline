@@ -32,13 +32,20 @@ public class TavoloDTO {
 	private String denominazione;
 	
 	
-	@NotNull(message = "{dataCreazione.notnull}")
 	private LocalDate dataCreazione;
 	
 	
 	private Long[] giocatoriIds;
 	
 	private UtenteDTO utenteCreatore;
+	
+	
+
+	public TavoloDTO() {
+		super();
+	}
+
+
 
 	public TavoloDTO(Long id, @NotNull(message = "esperienzaMin.notnull}") Integer esperienzaMin,
 			@NotNull(message = "{cifraMin.notnull}") Integer cifraMin,
@@ -109,6 +116,23 @@ public class TavoloDTO {
 		this.cifraMin = cifraMin;
 		this.denominazione = denominazione;
 		this.dataCreazione = dataCreazione;
+	}
+	
+	
+	
+	
+	
+
+
+
+
+	public TavoloDTO(@NotNull(message = "esperienzaMin.notnull}") Integer esperienzaMin,
+			@NotNull(message = "{cifraMin.notnull}") Integer cifraMin,
+			@NotBlank(message = "{denominazione.notblank}") String denominazione) {
+		super();
+		this.esperienzaMin = esperienzaMin;
+		this.cifraMin = cifraMin;
+		this.denominazione = denominazione;
 	}
 
 
@@ -183,7 +207,7 @@ public class TavoloDTO {
 	public static TavoloDTO buildTavoloDTOFromModel(Tavolo tavoloModel) {
 		TavoloDTO result = new TavoloDTO (tavoloModel.getId(), tavoloModel.getEsperienzaMin(), tavoloModel.getCifraMin(),
 				tavoloModel.getDenominazione(), tavoloModel.getDataCreazione());
-
+		result.setUtenteCreatore(UtenteDTO.buildUtenteDTOFromModel(tavoloModel.getUtenteCreatore()));
 		if (!tavoloModel.getGiocatori().isEmpty())
 			result.giocatoriIds = tavoloModel.getGiocatori().stream().map(r -> r.getId()).collect(Collectors.toList())
 					.toArray(new Long[] {});
