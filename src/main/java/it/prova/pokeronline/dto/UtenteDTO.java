@@ -2,6 +2,7 @@ package it.prova.pokeronline.dto;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotBlank;
@@ -263,6 +264,12 @@ public class UtenteDTO {
 
 			return result;
 		}
+		
+		
+	public static List<UtenteDTO> createUtenteDTOListFromModelList(List<Utente> modelList) {
+		return modelList.stream().map(entity -> UtenteDTO.buildUtenteDTOFromModel(entity)).collect(Collectors.toList());
+		}
+
 
 
 }

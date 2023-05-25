@@ -14,6 +14,7 @@ import it.prova.pokeronline.model.Utente;
 import it.prova.pokeronline.repository.tavolo.TavoloRepository;
 import it.prova.pokeronline.web.api.exception.CreditoInsufficientePerGiocareException;
 import it.prova.pokeronline.web.api.exception.EsperienzaInsuficienteException;
+import it.prova.pokeronline.web.api.exception.GiocatoreNonSedutoException;
 import it.prova.pokeronline.web.api.exception.TavoloNotFoundException;
 
 @Service
@@ -130,7 +131,7 @@ public class TavoloServiceImpl implements TavoloService {
 		}
 		
 		if (!tavolo.getGiocatori().contains(utenteLoggato)) {
-			throw new GiocatoreNonSeduto("impossibile giocare, il giocatore non è seduto.");
+			throw new GiocatoreNonSedutoException("impossibile giocare, il giocatore non è seduto.");
 		}
 		Double segno = Math.random();
 		if (segno <0.5) {
@@ -140,8 +141,37 @@ public class TavoloServiceImpl implements TavoloService {
 		Double somma=(Double)Math.random()*1000;
 		Double totDaAggiungereOSottrarre = segno*somma;
 		
+		Double nuovoCredito= utenteLoggato.getCreditoAccumulato() + totDaAggiungereOSottrarre;
 		
+		utenteLoggato.setCreditoAccumulato(nuovoCredito);
+		
+		return utenteLoggato;
 
 	}
+
+	@Override
+	public Tavolo abbandona(Long idTavolo) {
+		Tavolo tavolo = this.caricaSingoloTavolo(idTavolo);
+		if (tavolo.getId() == null) {
+			throw new TavoloNotFoundException("tavolo non trovato.");
+		}
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Utente utenteLoggato = utenteService.findByUsername(username);
+		
+		if (!tavolo.getGiocatori().contains(utenteLoggato)) {
+			throw new GiocatoreNonSedutoException("impossibile giocare, il giocatore non è seduto.");
+		}
+		
+		Set<Utente> giocatori= tavolo.getGiocatori();
+		
+		giocatori.remove(utenteLoggato);
+		
+		return tavolo;
+		
+	}
+	
+	
+	
 
 }

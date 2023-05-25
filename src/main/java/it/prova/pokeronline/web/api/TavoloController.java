@@ -160,6 +160,16 @@ public class TavoloController {
 	}
 	
 	
+	@GetMapping(value = "gioca/{id}")
+	public UtenteDTO gioca(@PathVariable(required = true) Long id) {
+		return UtenteDTO.buildUtenteDTOFromModel(tavoloService.gioca(id));
+	}
+	
+	@GetMapping(value = "abbandona/{id}")
+	public TavoloDTO abbandona(@PathVariable(required = true) Long id) {
+		return TavoloDTO.buildTavoloDTOFromModel(tavoloService.abbandona(id));
+	}
+	
 	
 	
 	

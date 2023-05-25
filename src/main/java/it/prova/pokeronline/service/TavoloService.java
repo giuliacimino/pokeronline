@@ -25,6 +25,8 @@ public interface TavoloService{
 	public Tavolo siediti(Long idTavolo);
 	
 	public Utente gioca(Long idTavolo);
+	
+	public Tavolo abbandona (Long idTavolo);
 
 	
 
