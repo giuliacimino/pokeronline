@@ -16,6 +16,7 @@ import it.prova.pokeronline.web.api.exception.CreditoInsufficientePerGiocareExce
 import it.prova.pokeronline.web.api.exception.EsperienzaInsuficienteException;
 import it.prova.pokeronline.web.api.exception.GiocatoreNonSedutoException;
 import it.prova.pokeronline.web.api.exception.TavoloNotFoundException;
+import it.prova.pokeronline.web.api.exception.UtenteNotAuthorizedException;
 
 @Service
 @Transactional(readOnly = true)
@@ -168,6 +169,14 @@ public class TavoloServiceImpl implements TavoloService {
 		giocatori.remove(utenteLoggato);
 		
 		return tavolo;
+		
+	}
+
+	@Override
+	public List<Tavolo> estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(String usernamePassato, int soglia) {
+		
+		 return repository.estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(username, soglia);
+		 
 		
 	}
 	

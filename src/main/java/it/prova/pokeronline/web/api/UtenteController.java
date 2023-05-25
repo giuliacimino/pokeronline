@@ -98,10 +98,7 @@ public class UtenteController {
 		return UtenteDTO.buildUtenteDTOFromModel(utenteInserito);
 	}
 	
-	@PutMapping(value = "edit/{id}")
-	public UtenteDTO modifica (Long id) {
-		return UtenteDTO.buildUtenteDTOFromModel(utenteService.aggiorna(id));
-	}
+	
 	
 	
 	
