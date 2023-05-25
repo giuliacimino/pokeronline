@@ -191,6 +191,29 @@ public class TavoloController {
 	}
 	
 	
+	@GetMapping(value = "/trovaTavoloConMassimaEsperienzaGiocatori")
+	public TavoloDTO trovaTavoloConMassimaEsperienzaGiocatori() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		Utente utenteLoggato = utenteService.findByUsername(username);
+		boolean eUtente = false;
+		
+		for(Ruolo ruoloItem: utenteLoggato.getRuoli()) {
+			if(ruoloItem.getDescrizione().equals("Administrator")) {
+				eUtente = true;
+			}
+		}
+		
+		if(utenteLoggato == null || !eUtente)
+			throw new UtenteNotAuthorizedException("Non si e' autorizzati all'operazione.");
+		
+		Tavolo tavoloConMassimaEsperienza = tavoloService.trovaTavoloConMassimaEsperienzaGiocatori();
+		
+		
+		return TavoloDTO.buildTavoloDTOFromModel(tavoloConMassimaEsperienza);
+		
+	}
+	
+	
 	
 	
 	

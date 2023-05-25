@@ -29,6 +29,8 @@ public interface TavoloService{
 	public Tavolo abbandona (Long idTavolo);
 	
 	public List<Tavolo> estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(String usernamePassato, int soglia);
+	
+	public Tavolo trovaTavoloConMassimaEsperienzaGiocatori();
 
 	
 

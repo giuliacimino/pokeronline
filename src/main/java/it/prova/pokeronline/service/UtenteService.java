@@ -34,6 +34,10 @@ public interface UtenteService {
 
 	public Utente compraCredito(Double ricarica);
 	
+	public List<Utente> trovaErroriUtenti ();
+	
+	public void svuotaImmediatamenteTavoliCreatiDaUtenti(List<String> listaUsername);
+	
 	
 
 }

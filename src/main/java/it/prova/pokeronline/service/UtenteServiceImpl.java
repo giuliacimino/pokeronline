@@ -135,6 +135,18 @@ public class UtenteServiceImpl implements UtenteService {
 
 	}
 
+	@Override
+	public List<Utente> trovaErroriUtenti() {
+		return repository.trovaErroriUtenti();
+	}
+
+	@Override
+	@Transactional
+	public void svuotaImmediatamenteTavoliCreatiDaUtenti(List<String> listaUsername) {
+		repository.svuotaImmediatamenteTavoliCreatiDaUtenti(listaUsername);
+		
+	}
+
 	
 		
 		

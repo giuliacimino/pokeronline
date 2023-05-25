@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.prova.pokeronline.dto.SvuotaTavoliDTO;
 import it.prova.pokeronline.dto.UtenteDTO;
 import it.prova.pokeronline.model.Ruolo;
 import it.prova.pokeronline.model.Tavolo;
@@ -98,6 +99,33 @@ public class UtenteController {
 		return UtenteDTO.buildUtenteDTOFromModel(utenteInserito);
 	}
 	
+	@GetMapping("/trovaErroriUtenti")
+	public List<UtenteDTO> trovaErroriUtenti(){
+		// controllo che id dell'utente sia se stesso
+				String username = SecurityContextHolder.getContext().getAuthentication().getName();
+				Utente utenteLoggato = utenteService.findByUsername(username);
+
+				boolean eUtente = false;
+
+				for (Ruolo ruoloItem : utenteLoggato.getRuoli()) {
+					if (ruoloItem.getDescrizione().equals("Administrator")) {
+						eUtente = true;
+					}
+				}
+				if(!eUtente)
+					throw new UtenteNotAuthorizedException("Non si e' autorizzati all'operazione.");
+				
+				List<Utente> utentiConErrori= utenteService.trovaErroriUtenti();
+				
+				return UtenteDTO.createUtenteDTOListFromModelList(utentiConErrori);
+				
+		
+	}
+	
+	@PostMapping("/svuotaImmediatamenteTavoliCreatiDaUtenti")
+	public void svuotaImmediatamenteTavoliCreatiDaUtentin(@RequestBody List<String> listaDTO) {
+		utenteService.svuotaImmediatamenteTavoliCreatiDaUtenti(listaDTO);
+	}
 	
 	
 	

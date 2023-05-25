@@ -175,9 +175,14 @@ public class TavoloServiceImpl implements TavoloService {
 	@Override
 	public List<Tavolo> estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(String usernamePassato, int soglia) {
 		
-		 return repository.estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(username, soglia);
+		 return repository.estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(usernamePassato, soglia);
 		 
 		
+	}
+
+	@Override
+	public Tavolo trovaTavoloConMassimaEsperienzaGiocatori() {
+		return repository.trovaTavoloConMassimaEsperienzaGiocatori();
 	}
 	
 	

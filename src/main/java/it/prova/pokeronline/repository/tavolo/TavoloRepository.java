@@ -18,7 +18,10 @@ public interface TavoloRepository extends JpaSpecificationExecutor<Tavolo>, Pagi
 			+ "WHERE u.username like : username and exists(select null from utente u where u.esperienzaaccumulata>=0);", nativeQuery= true)
 	 List<Tavolo> estraiTavoliConAlmenoUnUtenteAlDiSopraDiSoglia(String username, int soglia);
 	 
-	 
+	
+	@Query(value = "select t.* from utente u inner join tavolo_giocatori g on u.id = g.giocatori_id "
+			+ "inner join tavolo t on g.Tavolo_id = t.id group by t.id order by sum(u.esperienzaaccumulata) desc limit 1", nativeQuery = true)
+	 Tavolo trovaTavoloConMassimaEsperienzaGiocatori ();
 	
 	
 
